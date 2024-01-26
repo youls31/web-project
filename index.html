@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+<title>  Catalogue Produits
+</title>
+<link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+        <h2 id="h2id"></h2>
+       <div id="prods" class="container">
+
+       </div> 
+
+
+<script >
+
+    let h2id= document.getElementById("h2id");
+   h2id.innerHTML = 'Liste des Produits : ';
+     function fetchData(){
+         return fetch('https://dummyjson.com/products')
+
+     }
+           function  createProduct(title,url,prix)  {
+               let rootdiv = document.getElementById("prods");
+               let div = document.createElement("div");
+               div.class="item"
+               let  paraTitle = document.createElement("p");
+                paraTitle.style.fontWeight="bolder";
+                  paraTitle.innerHTML = title
+                 let img = document.createElement("img");
+                 img.src = url;
+                 img.style.width ="150px"
+                 img.style.height="150px"
+                  let paraprice = document.createElement("p");
+                  paraprice.style.fontWeight="bold"
+                  paraprice.innerHTML =  prix+'$';
+                  div.appendChild(paraTitle);
+                  div.appendChild(img);
+                  div.appendChild(paraprice)
+      
+                 rootdiv.appendChild(div);
+              }
+           
+            
+              fetch('https://dummyjson.com/products').then(res=>res.json()).
+                    then((data)=> {
+                        for(let i=0;i<data.products.length;i++){
+                         createProduct(data.products[i].title,data.products[i].images[0],data.products[i].price);
+                       
+                    }});
+             
+              
+    
+            
+              
+
+    </script>
+</body>
+</html>
